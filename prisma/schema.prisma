@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Ambassador {
+  id           String       @id
+  name         String
+  college      String
+  referrals    Int          @default(0)
+  contentPosts Int          @default(0)
+  events       Int          @default(0)
+  points       Int          @default(0)
+  streak       Int          @default(0)
+  submissions  Submission[]
+}
+
+model Task {
+  id          String       @id
+  title       String
+  type        String
+  description String
+  points      Int
+  status      String
+  dueDate     String
+  submissions Submission[]
+}
+
+model Submission {
+  id            String    @id
+  taskId        String
+  ambassadorId  String
+  notes         String
+  proofUrl      String?
+  hasFileProof  Boolean   @default(false)
+  awardedPoints Int
+  submittedAt   DateTime  @default(now())
+  ambassador    Ambassador @relation(fields: [ambassadorId], references: [id], onDelete: Cascade)
+  task          Task       @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@index([taskId])
+  @@index([ambassadorId])
+}
