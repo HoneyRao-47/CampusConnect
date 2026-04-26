@@ -395,3 +395,5 @@ npm run db:studio
 - Role-level permissions and admin workflows
 - Reward payouts and partner integrations
 - AI recommendation engine for ambassador growth coaching
+
+demo recording -  https://drive.google.com/file/d/1Q4XMZ9hXMnnUN16_lzMrpCAwD_zXKXHZ/view?usp=sharing
